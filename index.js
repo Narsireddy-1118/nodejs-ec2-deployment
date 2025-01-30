@@ -1,11 +1,14 @@
-const express = require('express');
-const app = express();
-const port = 80; // Port 80 is the default HTTP port
+const http = require('http');
 
-app.get('/', (req, res) => {
-  res.send('Heeeello, Woorrrrld!');
+const hostname = '0.0.0.0';  // Listen on all IPs, including public IP
+const port = 3000;  // Port to listen on
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
