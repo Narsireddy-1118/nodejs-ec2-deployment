@@ -21,13 +21,17 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Debug EC2_HOST
+      run: echo "EC2_HOST is $EC2_HOST"
+      # This is for debugging, to ensure the EC2_HOST value is set correctly.
+
     - name: Deploy to EC2
       run: |
         echo "$EC2_SSH_PRIVATE_KEY" > private_key.pem
         chmod 600 private_key.pem
-        ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@$EC2_HOST <<EOF
+        ssh -T -o StrictHostKeyChecking=no -i private_key.pem ec2-user@$EC2_HOST <<EOF
           cd /home/ec2-user/nodejs-ec2-deployment || mkdir /home/ec2-user/nodejs-ec2-deployment
-          git pull origin main || git clone https://github.com/Narsireddy-1118/nodejs-ec2-deployment.git
+          git pull origin main || git clone https://github.com/Narsieddy-1118/nodejs-ec2-deployment.git
           cd nodejs-ec2-deployment
           npm install
           pm2 restart all || pm2 start index.js
