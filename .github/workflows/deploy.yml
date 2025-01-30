@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Set EC2_HOST environment variable
-        run: echo "EC2_HOST=${{ secrets.EC2_HOST }}" >> $GITHUB_ENV
+        run: echo "EC2_HOST=${{ 16.171.250.17 }}" >> $GITHUB_ENV
 
       - name: Deploy to EC2
         env:
